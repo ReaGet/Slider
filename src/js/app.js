@@ -1,7 +1,7 @@
 import "../styles/styles.scss";
 import { debounce } from "./utils.js";
 
-function Slider(options) {
+export default function Slider(options) {
   "use strict";
   if (!options?.root) {
     return;
@@ -45,12 +45,6 @@ function Slider(options) {
     }
     gotoDebounced(activeSlide);
     setTimeout(() => {
-      // slides.forEach((slide) => {
-      //   transitionSpeed(slide, speed);
-      // });
-      // pagination.items.forEach((bullet) => {
-      //   transitionSpeed(bullet, speed);
-      // });
       document.body.style.setProperty("--slider-transition-duration", `${speed}ms`);
       startLoop();
     }, 0);
@@ -60,6 +54,7 @@ function Slider(options) {
 
   function bind() {
     root.addEventListener("click", handleClicks);
+    root.addEventListener("transitionend", handleTransitionEnd);
     document.addEventListener("keydown", handleKeydown);
     window.addEventListener("resize", handleResizeDebounced);
   }
@@ -90,7 +85,6 @@ function Slider(options) {
     }
     pagination.root.append(...fragment.children);
     pagination.items.push(...pagination.root.children);
-    // pagination.innerOffset = pagination.root.offsetWidth;
   }
 
   function handlePaginationItems() {
@@ -172,6 +166,12 @@ function Slider(options) {
     handleSliderItems();
   }
 
+  function handleTransitionEnd(event) {
+    if (event.target.classList.contains("slider__pagination-item")) {
+      startLoop();
+    }
+  }
+
   function hide(el) {
     el.classList.add("hidden");
   }
@@ -193,18 +193,18 @@ function Slider(options) {
     handleButtons();
     handleSliderItems();
     handlePaginationItems();
-    startLoop();
+    stopLoop();
   }
 
   function startLoop() {
-    if (!autoplay) {
+    if (!autoplay || delay <= 0) {
       return;
     }
-    stop();
+    stopLoop();
     loopInterval = setInterval(next, delay);
   }
 
-  function stop() {
+  function stopLoop() {
     clearInterval(loopInterval);
   }
 
@@ -216,7 +216,9 @@ function Slider(options) {
     start() {
       startLoop();
     },
-    stop,
+    stop() {
+      stopLoop();
+    },
     activeSlide() {
       return activeSlide;
     },
@@ -226,27 +228,27 @@ function Slider(options) {
   }
 }
 
-const slider = Slider({
-  root: document.querySelector("#slider"),
-  // autoplay: true,
-  loop: true,
-  delay: 1500,
-  speed: 200,
-  // startSlide: 0,
-  // controls: false,
-  // pagination: false,
-});
+// const slider = Slider({
+//   root: document.querySelector("#slider"),
+//   // autoplay: true,
+//   loop: true,
+//   delay: 1500,
+//   speed: 200,
+//   // startSlide: 0,
+//   // controls: false,
+//   // pagination: false,
+// });
 
-const slider2 = Slider({
-  root: document.querySelector("#slider2"),
-  autoplay: true,
-  loop: true,
-  delay: 500,
-  speed: 500,
-  startSlide: 4,
-  // controls: false,
-  // pagination: false,
-});
+// const slider2 = Slider({
+//   root: document.querySelector("#slider2"),
+//   autoplay: true,
+//   loop: true,
+//   delay: 500,
+//   speed: 500,
+//   startSlide: 4,
+//   // controls: false,
+//   // pagination: false,
+// });
 
-// window.slider2 = slider2;
-window.slider = slider;
+// // window.slider2 = slider2;
+// window.slider = slider;

@@ -1,11 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  background-color: #e5e5e5;
   --slider-transition-duration: 0;
 }
 
@@ -14,19 +7,13 @@ $slider-border-radius: 35px;
 $slider-main-button-color: #fefefe;
 $slider-main-button-offset: 25px;
 $slider-slide-button-color: #B2ADAD;
-// :root {
-  // --slider-pagination-button-color: #D7262E;
-  // --slider-border-radius: 35px;
-  // --slider-main-button-color: #fefefe;
-  // --slider-main-button-offset: 25px;
-// }
 
-.container {
-  max-width: 1530px;
-  padding: 0 15px;
-  min-height: 100px;
-  margin: 100px auto 0;
-}
+// .container {
+//   max-width: 1530px;
+//   padding: 0 15px;
+//   min-height: 100px;
+//   margin: 100px auto 0;
+// }
 
 .slider {
   display: flex;
@@ -163,6 +150,7 @@ $slider-slide-button-color: #B2ADAD;
     list-style: none;
     width: 170px;
     overflow: hidden;
+    padding: 0;
 
     &-item {
       position: relative;
@@ -227,133 +215,10 @@ $slider-slide-button-color: #B2ADAD;
   }
 }
 
-// @media (max-width: 1560px) {
-//   .container {
-//     max-width: 990px;
-//   }
-//   .slider {
-//     &__wrapper {
-//       border-radius: 20px;
-//     }
-//     &__slide {
-//       padding-top: 225px;
-//       &-button {
-//         bottom: 25px;
-//         left: 78px;
-//         font-size: 14px;
-//         padding: 11px 32px 13px;
-//       }
-//     }
-//     &__button {
-//       width: 40px;
-//       height: 40px;
-//       &--prev {
-//         left: 20px;
-//       }
-//       &--next {
-//         right: 20px;
-//       }
-//     }
-//     &__pagination {
-//       width: 145px;
-//     }
-//   }
-// }
-
-// @media (max-width: 989px) {
-//   .container {
-//     max-width: 750px;
-//   }
-//   .slider {
-//     &__wrapper {
-//       border-radius: 10px;
-//     }
-//     &__slide {
-//       padding-top: 170px;
-//       &-button {
-//         bottom: 18px;
-//         left: 55px;
-//         font-size: 12px;
-//         padding: 7px 20px 9px;
-//       }
-//     }
-//     &__button {
-//       width: 30px;
-//       height: 30px;
-//       &--prev {
-//         left: 12px;
-//       }
-//       &--next {
-//         right: 12px;
-//       }
-//       &::before {
-//         width: 6px;
-//         height: 11px;
-//       }
-//     }
-//     &__pagination-item {
-//       &::before {
-//         width: 9px;
-//         height: 9px;
-//       }
-//     }
-//   }
-// }
-
-// @media (max-width: 749px) {
-//   .container {
-//     max-width: 540px;
-//   }
-//   .slider {
-//     &__slide {
-//       padding-top: 120px;
-//       &-button {
-//         display: none;
-//       }
-//     }
-//     &__button {
-//       width: 25px;
-//       height: 25px;
-//       &--prev {
-//         left: 8px;
-//       }
-//       &--next {
-//         right: 8px;
-//       }
-//     }
-//     &__pagination {
-//       margin: 20px 0;
-//     }
-//   }
-// }
-
-// @media (max-width: 539px) {
-//   .container {
-//     max-width: 360px;
-//   }
-//   .slider {
-//     &__wrapper {
-//       border-radius: 7px;
-//     }
-//     &__slide {
-//       padding-top: 77px;
-//       &-button {
-//         display: none;
-//       }
-//     }
-//     &__buttons {
-//       display: none;
-//     }
-//     &__pagination {
-//       margin: 10px 0;
-//     }
-//   }
-// }
-
 @media (max-width: 1229px) {
-  .container {
-    max-width: 990px;
-  }
+  // .container {
+  //   max-width: 990px;
+  // }
   .slider {
     &__wrapper {
       border-radius: 20px;
@@ -385,9 +250,9 @@ $slider-slide-button-color: #B2ADAD;
 }
 
 @media (max-width: 989px) {
-  .container {
-    max-width: 750px;
-  }
+  // .container {
+  //   max-width: 750px;
+  // }
   .slider {
     &__wrapper {
       border-radius: 10px;
@@ -426,9 +291,9 @@ $slider-slide-button-color: #B2ADAD;
 }
 
 @media (max-width: 749px) {
-  .container {
-    max-width: 540px;
-  }
+  // .container {
+  //   max-width: 540px;
+  // }
   .slider {
     &__slide {
       // padding-top: 120px;
@@ -454,9 +319,9 @@ $slider-slide-button-color: #B2ADAD;
 }
 
 @media (max-width: 539px) {
-  .container {
-    max-width: 360px;
-  }
+  // .container {
+  //   max-width: 360px;
+  // }
   .slider {
     &__wrapper {
       border-radius: 7px;
