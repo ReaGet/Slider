@@ -50,7 +50,7 @@ $slider-slide-button-color: #B2ADAD;
 
   &__slide {
     position: relative;
-    padding-top: 350px;
+    // padding-top: 350px;
     width: 100%;
     flex-shrink: 0;
     opacity: 0;
@@ -67,12 +67,14 @@ $slider-slide-button-color: #B2ADAD;
     &-img {
       img {
         max-width: none;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 50%;
-        -webkit-transform: translate(-50%,0);
-        transform: translate(-50%,0);
+        width: 100%;
+        height: auto;
+        // height: 100%;
+        // position: absolute;
+        // top: 0;
+        // left: 50%;
+        // -webkit-transform: translate(-50%,0);
+        // transform: translate(-50%,0);
         user-drag: none;
         -moz-user-select: none;
         -webkit-user-drag: none;
@@ -82,7 +84,8 @@ $slider-slide-button-color: #B2ADAD;
     &-button {
       position: absolute;
       bottom: 55px;
-      left: 120px;
+      // left: 120px;
+      left: 8.125%;
       color: #fff;
       background-color: $slider-slide-button-color;
       border-radius: $slider-border-radius;
@@ -224,6 +227,129 @@ $slider-slide-button-color: #B2ADAD;
   }
 }
 
+// @media (max-width: 1560px) {
+//   .container {
+//     max-width: 990px;
+//   }
+//   .slider {
+//     &__wrapper {
+//       border-radius: 20px;
+//     }
+//     &__slide {
+//       padding-top: 225px;
+//       &-button {
+//         bottom: 25px;
+//         left: 78px;
+//         font-size: 14px;
+//         padding: 11px 32px 13px;
+//       }
+//     }
+//     &__button {
+//       width: 40px;
+//       height: 40px;
+//       &--prev {
+//         left: 20px;
+//       }
+//       &--next {
+//         right: 20px;
+//       }
+//     }
+//     &__pagination {
+//       width: 145px;
+//     }
+//   }
+// }
+
+// @media (max-width: 989px) {
+//   .container {
+//     max-width: 750px;
+//   }
+//   .slider {
+//     &__wrapper {
+//       border-radius: 10px;
+//     }
+//     &__slide {
+//       padding-top: 170px;
+//       &-button {
+//         bottom: 18px;
+//         left: 55px;
+//         font-size: 12px;
+//         padding: 7px 20px 9px;
+//       }
+//     }
+//     &__button {
+//       width: 30px;
+//       height: 30px;
+//       &--prev {
+//         left: 12px;
+//       }
+//       &--next {
+//         right: 12px;
+//       }
+//       &::before {
+//         width: 6px;
+//         height: 11px;
+//       }
+//     }
+//     &__pagination-item {
+//       &::before {
+//         width: 9px;
+//         height: 9px;
+//       }
+//     }
+//   }
+// }
+
+// @media (max-width: 749px) {
+//   .container {
+//     max-width: 540px;
+//   }
+//   .slider {
+//     &__slide {
+//       padding-top: 120px;
+//       &-button {
+//         display: none;
+//       }
+//     }
+//     &__button {
+//       width: 25px;
+//       height: 25px;
+//       &--prev {
+//         left: 8px;
+//       }
+//       &--next {
+//         right: 8px;
+//       }
+//     }
+//     &__pagination {
+//       margin: 20px 0;
+//     }
+//   }
+// }
+
+// @media (max-width: 539px) {
+//   .container {
+//     max-width: 360px;
+//   }
+//   .slider {
+//     &__wrapper {
+//       border-radius: 7px;
+//     }
+//     &__slide {
+//       padding-top: 77px;
+//       &-button {
+//         display: none;
+//       }
+//     }
+//     &__buttons {
+//       display: none;
+//     }
+//     &__pagination {
+//       margin: 10px 0;
+//     }
+//   }
+// }
+
 @media (max-width: 1229px) {
   .container {
     max-width: 990px;
@@ -233,7 +359,8 @@ $slider-slide-button-color: #B2ADAD;
       border-radius: 20px;
     }
     &__slide {
-      padding-top: 225px;
+      // padding-top: 225px;
+      height: 225px;
       &-button {
         bottom: 25px;
         left: 78px;
@@ -266,7 +393,8 @@ $slider-slide-button-color: #B2ADAD;
       border-radius: 10px;
     }
     &__slide {
-      padding-top: 170px;
+      // padding-top: 170px;
+      height: 170px;
       &-button {
         bottom: 18px;
         left: 55px;
@@ -303,7 +431,8 @@ $slider-slide-button-color: #B2ADAD;
   }
   .slider {
     &__slide {
-      padding-top: 120px;
+      // padding-top: 120px;
+      height: 120px;
       &-button {
         display: none;
       }
@@ -333,7 +462,8 @@ $slider-slide-button-color: #B2ADAD;
       border-radius: 7px;
     }
     &__slide {
-      padding-top: 77px;
+      // padding-top: 77px;
+      height: 77px;
       &-button {
         display: none;
       }
