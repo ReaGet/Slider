@@ -33,6 +33,7 @@ $slider-slide-button-color: #B2ADAD;
   &__slides {
     position: relative;
     display: flex;
+    max-height: inherit;
   }
 
   &__slide {
