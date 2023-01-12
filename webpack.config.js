@@ -10,6 +10,7 @@ module.exports = {
       keep: /slides/
     },
   },
+  devtool: "inline-source-map",
   plugins: [
     new miniCssExtractPlugin({
       filename: `./styles/styles.css`,
@@ -20,8 +21,7 @@ module.exports = {
     }),
   ],
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.(sc|sa|c)ss$/i,
         use: [
           // "style-loader",
@@ -40,14 +40,14 @@ module.exports = {
             },
           }
         ]
-      }
+      },
     ],
   },
   devServer: {
     hot: true,
     watchFiles: ["src/index.html"],
     static: {
-      directory: path.resolve(__dirname, "public/"), 
+      directory: path.resolve(__dirname, "public/"),
     },
   },
 }

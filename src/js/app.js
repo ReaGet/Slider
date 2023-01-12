@@ -151,7 +151,7 @@ function Slider(options) {
       prev();
     }
   }
-
+  
   function handlePaginationBulletClick(event) {
     const item = event.target.closest(".slider__pagination-item") || event.target;
     const index = pagination.items.indexOf(item);
