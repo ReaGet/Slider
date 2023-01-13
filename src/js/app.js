@@ -164,6 +164,7 @@ export default function Slider(options) {
 
   function handleResize() {
     handleSliderItems();
+    handlePaginationItems();
   }
 
   function handleTransitionEnd(event) {
@@ -228,27 +229,13 @@ export default function Slider(options) {
   }
 }
 
-// const slider = Slider({
-//   root: document.querySelector("#slider"),
-//   // autoplay: true,
-//   loop: true,
-//   delay: 1500,
-//   speed: 200,
-//   // startSlide: 0,
-//   // controls: false,
-//   // pagination: false,
-// });
-
-// const slider2 = Slider({
-//   root: document.querySelector("#slider2"),
-//   autoplay: true,
-//   loop: true,
-//   delay: 500,
-//   speed: 500,
-//   startSlide: 4,
-//   // controls: false,
-//   // pagination: false,
-// });
-
-// // window.slider2 = slider2;
-// window.slider = slider;
+const slider = Slider({
+  root: document.querySelector("#slider"),
+  // autoplay: true,
+  loop: true,
+  delay: 1500,
+  speed: 200,
+  // startSlide: 0,
+  // controls: false,
+  // pagination: false,
+});

@@ -229,7 +229,7 @@ $slider-slide-button-color: #B2ADAD;
       height: 225px;
       &-button {
         bottom: 25px;
-        left: 78px;
+        // left: 78px;
         font-size: 14px;
         padding: 11px 32px 13px;
       }
@@ -246,6 +246,12 @@ $slider-slide-button-color: #B2ADAD;
     }
     &__pagination {
       width: 145px;
+      &-item {
+        &::before {
+          width: 9px;
+          height: 9px;
+        }
+      }
     }
   }
 }
@@ -263,7 +269,7 @@ $slider-slide-button-color: #B2ADAD;
       height: 170px;
       &-button {
         bottom: 18px;
-        left: 55px;
+        // left: 55px;
         font-size: 12px;
         padding: 7px 20px 9px;
       }
@@ -280,12 +286,6 @@ $slider-slide-button-color: #B2ADAD;
       &::before {
         width: 6px;
         height: 11px;
-      }
-    }
-    &__pagination-item {
-      &::before {
-        width: 9px;
-        height: 9px;
       }
     }
   }
