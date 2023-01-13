@@ -167,6 +167,13 @@ export default function Slider(options) {
     handlePaginationItems();
   }
 
+  function handleLazyLoading() {
+    const slide = slides[activeSlide];
+    const img = slide.querySelector("img");
+    img.src = img.dataset.src;
+    console.log(slide);
+  }
+
   function handleTransitionEnd(event) {
     if (event.target.classList.contains("slider__pagination-item")) {
       startLoop();
@@ -193,6 +200,7 @@ export default function Slider(options) {
     activeSlide = handleIndex(slideIndex);
     handleButtons();
     handleSliderItems();
+    handleLazyLoading();
     handlePaginationItems();
     stopLoop();
   }
