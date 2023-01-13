@@ -6,6 +6,11 @@ export default function Slider(options) {
   if (!options?.root) {
     return;
   }
+
+  const config = {
+    root: null,
+  }
+
   options = options || {}
   let root = options.root;
   let activeSlide = options.startSlide || 0;
@@ -95,7 +100,7 @@ export default function Slider(options) {
     });
     for (let i = activeSlide; i <= activeSlide + 4; i++) {
       let n = handleIndex(i - 2);
-      pagination.items.at(n)?.setAttribute("data-offset", n - activeSlide + 2);
+      pagination.items[n]?.setAttribute("data-offset", n - activeSlide + 2);
     }
     pagination.items.forEach((bullet) => {
       translate(bullet, offset, speed);
@@ -171,7 +176,6 @@ export default function Slider(options) {
     const slide = slides[activeSlide];
     const img = slide.querySelector("img");
     img.src = img.dataset.src;
-    console.log(slide);
   }
 
   function handleTransitionEnd(event) {
