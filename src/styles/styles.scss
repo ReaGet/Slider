@@ -76,8 +76,9 @@ $slider-slide-button-color: #B2ADAD;
 
     &-button {
       position: absolute;
-      bottom: 55px;
+      // bottom: 55px;
       // left: 120px;
+      bottom: 15.4%;
       left: 8.125%;
       color: #fff;
       background-color: $slider-slide-button-color;
@@ -314,11 +315,9 @@ $slider-slide-button-color: #B2ADAD;
     }
     &__pagination {
       width: 145px;
-      &-item {
-        &::before {
-          width: 9px;
-          height: 9px;
-        }
+      &-bullet {
+        width: 9px;
+        height: 9px;
       }
     }
   }
