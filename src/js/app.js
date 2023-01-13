@@ -29,7 +29,7 @@ export default function Slider(options) {
   };
   
   const gotoDebounced = debounce(goto, speed);
-  const handleResizeDebounced = debounce(handleResize, 200);
+  const handleResizeDebounced = debounce(handleResize, 100);
   
   function setup() {
     if (!controlsEnabled || slides.length < 2) {
