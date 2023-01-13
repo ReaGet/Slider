@@ -10,7 +10,7 @@ export default function Slider(options) {
   const config = {
     root: null,
   }
-
+  console.log(options)
   options = options || {}
   let root = options.root;
   let activeSlide = options.startSlide || 0;
@@ -81,9 +81,9 @@ export default function Slider(options) {
       const bullet = document.createElement("div");
       bullet.innerHTML = `
         <li class="slider__pagination-item">
-          <button class="slider__pagination-button" aria-label="Go to slide ${i + 1}">
+          <span class="slider__pagination-bullet" aria-label="Go to slide ${i + 1}">
             Dot slide
-          </button>
+          </span>
         </li>
       `;
       fragment.append(bullet.children[0]);
