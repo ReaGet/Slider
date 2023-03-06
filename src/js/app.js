@@ -10,7 +10,7 @@ export default function Slider(options) {
   const config = {
     root: null,
   }
-  console.log(options)
+  // console.log(options)
   options = options || {}
   let root = options.root;
   let activeSlide = options.startSlide || 0;
