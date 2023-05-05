@@ -7,9 +7,6 @@ export default function Slider(options) {
     return;
   }
 
-  const config = {
-    root: null,
-  }
   // console.log(options)
   options = options || {}
   let root = options.root;
@@ -32,6 +29,24 @@ export default function Slider(options) {
     root: root.querySelector(".slider__pagination"),
     items: [],
   };
+
+  const emitter = {
+    listeners: {},
+    on(name, fn) {
+      !this.listeners[name] && (this.listeners[name] = []);
+      this.listeners[name].push(fn);
+    },
+    off(name, fn) {
+      this.listeners[name] = this.listeners[name].filter((listenerFn) => listenerFn !== fn);
+    },
+    emit(name) {
+      const listeners = this.listeners[name];
+      listeners && listeners.forEach((fn) => fn.call(
+        null,
+        Array.prototype.slice.call(arguments, 1)
+      ));
+    }
+  }
   
   const gotoDebounced = debounce(goto, speed);
   const handleResizeDebounced = debounce(handleResize, 100);
@@ -62,6 +77,13 @@ export default function Slider(options) {
     root.addEventListener("transitionend", handleTransitionEnd);
     document.addEventListener("keydown", handleKeydown);
     window.addEventListener("resize", handleResizeDebounced);
+  }
+
+  function unbind() {
+    root.removeEventListener("click", handleClicks);
+    root.removeEventListener("transitionend", handleTransitionEnd);
+    document.removeEventListener("keydown", handleKeydown);
+    window.removeEventListener("resize", handleResizeDebounced);
   }
 
   function translate(el, dist) {
@@ -238,16 +260,26 @@ export default function Slider(options) {
     goto(slideIndex) {
       goto(slideIndex);
     },
+    destroy() {
+      unbind();
+      root.remove();
+      emitter.emit("destroy");
+
+    },
+    on(name, fn) {
+      emitter.on(name, fn);
+    },
+    root
   }
 }
 
-const slider = Slider({
-  root: document.querySelector("#slider"),
-  // autoplay: true,
-  loop: true,
-  delay: 1500,
-  speed: 200,
-  // startSlide: 0,
-  // controls: false,
-  // pagination: false,
-});
+// const slider = Slider({
+//   root: document.querySelector("#slider"),
+//   // autoplay: true,
+//   loop: true,
+//   delay: 1500,
+//   speed: 200,
+//   // startSlide: 0,
+//   // controls: false,
+//   // pagination: false,
+// });
