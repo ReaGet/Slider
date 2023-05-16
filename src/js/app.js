@@ -1,6 +1,19 @@
 import "../styles/styles.scss";
 import { debounce } from "./utils.js";
-
+/**
+ * 
+ * @param {Object} options Параметры
+ * @params options.root Родительский элемент слайдера
+ * @params options.startSlide Номер слайда, с которого начинается показ
+ * @params options.controls Включить кнопки переключения Default true
+ * @params options.pagination Включить пагинацию. Default true
+ * @params options.loop Включить бесконечный режим переключения
+ * @params options.autoplay Автоперелистывание
+ * @params options.speed Скорость анимации
+ * @params options.delay Задержка перед переключением слайда
+ * @params options.thumbnails Включить обложки. Включается вместо пагинации
+ * @returns Экземпляр слайдера
+ */
 export default function Slider(options) {
   "use strict";
   if (!options?.root) {
@@ -10,8 +23,9 @@ export default function Slider(options) {
   // console.log(options)
   options = options || {}
   let root = options.root;
-  let activeSlide = options.startSlide || 0;
+  let activeSlideIndex = options.startSlide || 0;
   let controlsEnabled = options.controls === undefined ? true : options.controls;
+  let thumbnailsEnabled = options.thumbnails || false;
   let paginationEnabled = options.pagination === undefined ? true : options.pagination;
   let loop = options.loop;
   let autoplay = options.autoplay;
@@ -19,12 +33,23 @@ export default function Slider(options) {
   let delay = options.delay || 1000;
   let loopInterval = null;
 
+  if (thumbnailsEnabled) {
+    paginationEnabled = false;
+  }
+
   let slides = root.querySelectorAll(".slider__slide");
   let buttons = {
     root: root.querySelector(".slider__buttons"),
     prev: root.querySelector(".slider__button--prev"),
     next: root.querySelector(".slider__button--next"),
   };
+
+  let thumbnails = {
+    root: root.querySelector(".slider__thumbnails"),
+    inner: root.querySelector(".slider__thumbnails-inner"),
+    items: [],
+  };
+
   let pagination = {
     root: root.querySelector(".slider__pagination"),
     items: [],
@@ -63,7 +88,10 @@ export default function Slider(options) {
       show(pagination.root);
       createPaginationItems();
     }
-    gotoDebounced(activeSlide);
+    if (thumbnailsEnabled) {
+      createThumbnails();
+    }
+    gotoDebounced(activeSlideIndex);
     setTimeout(() => {
       document.body.style.setProperty("--slider-transition-duration", `${speed}ms`);
       startLoop();
@@ -114,15 +142,32 @@ export default function Slider(options) {
     pagination.items.push(...pagination.root.children);
   }
 
+  function createThumbnails() {
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < slides.length; i++) {
+      const slideImg = slides[i].querySelector("img");
+      const thumbnialLink = slideImg.dataset.thumb;
+      const bullet = document.createElement("div");
+      bullet.innerHTML = `
+        <div class="slider__thumbnails-item">
+          <img src="${thumbnialLink}" alt="">
+        </div>
+      `;
+      fragment.append(bullet.children[0]);
+    }
+    thumbnails.inner.append(...fragment.children);
+    thumbnails.items.push(...thumbnails.inner.children);
+  }
+
   function handlePaginationItems() {
     const step = pagination.root.offsetWidth / 5;
-    const offset = (step * 2 - step * activeSlide);
+    const offset = (step * 2 - step * activeSlideIndex);
     pagination.items.forEach((bullet) => {
       bullet.removeAttribute("data-offset");
     });
-    for (let i = activeSlide; i <= activeSlide + 4; i++) {
+    for (let i = activeSlideIndex; i <= activeSlideIndex + 4; i++) {
       let n = handleIndex(i - 2);
-      pagination.items[n]?.setAttribute("data-offset", n - activeSlide + 2);
+      pagination.items[n]?.setAttribute("data-offset", n - activeSlideIndex + 2);
     }
     pagination.items.forEach((bullet) => {
       translate(bullet, offset, speed);
@@ -133,9 +178,20 @@ export default function Slider(options) {
     const width = root.offsetWidth;
     slides.forEach((slide, index) => {
       slide.classList.remove("slider__slide--active");
-      index === activeSlide && slide.classList.add("slider__slide--active"),
+      index === activeSlideIndex && slide.classList.add("slider__slide--active"),
 
       translate(slide, -width * index);
+    });
+  }
+
+  function handleThumbnailsItems() {
+    const widthOuter = thumbnails.root.offsetWidth;
+    const widthInner = thumbnails.inner.offsetWidth;
+    const step = (widthInner - widthOuter) / (thumbnails.items.length - 1);
+    let offset = -step * activeSlideIndex;
+    console.log(widthOuter, widthInner, offset, step);
+    thumbnails.items.forEach((thumb) => {
+      translate(thumb, offset, speed);
     });
   }
 
@@ -144,8 +200,8 @@ export default function Slider(options) {
       return;
     }
 
-    activeSlide === 0 ? hide(buttons.prev) : show(buttons.prev);
-    activeSlide === slides.length - 1 ? hide(buttons.next) : show(buttons.next);
+    activeSlideIndex === 0 ? hide(buttons.prev) : show(buttons.prev);
+    activeSlideIndex === slides.length - 1 ? hide(buttons.next) : show(buttons.next);
   }
 
   function handleIndex(slideIndex) {
@@ -162,6 +218,9 @@ export default function Slider(options) {
     }
     if (event.target.closest(".slider__pagination") ) {
       handlePaginationBulletClick(event);
+    }
+    if (event.target.closest(".slider__thumbnails") ) {
+      handleThumbnailsClick(event);
     }
   }
 
@@ -181,6 +240,14 @@ export default function Slider(options) {
     }
   }
 
+  function handleThumbnailsClick(event) {
+    const item = event.target.closest(".slider__thumbnails-item") || event.target;
+    const index = thumbnails.items.indexOf(item);
+    if (index >= 0) {
+      goto(index);
+    }
+  }
+
   function handleKeydown(event) {
     if (event.key === "ArrowRight") {
       next();
@@ -192,10 +259,11 @@ export default function Slider(options) {
   function handleResize() {
     handleSliderItems();
     handlePaginationItems();
+    handleThumbnailsItems();
   }
 
   function handleLazyLoading() {
-    const slide = slides[activeSlide];
+    const slide = slides[activeSlideIndex];
     const img = slide.querySelector("img");
     img.src = img.dataset.src;
   }
@@ -215,19 +283,20 @@ export default function Slider(options) {
   }
 
   function next() {
-    gotoDebounced(activeSlide + 1);
+    gotoDebounced(activeSlideIndex + 1);
   }
 
   function prev() {
-    gotoDebounced(activeSlide - 1);
+    gotoDebounced(activeSlideIndex - 1);
   }
 
   function goto(slideIndex) {
-    activeSlide = handleIndex(slideIndex);
+    activeSlideIndex = handleIndex(slideIndex);
     handleButtons();
     handleSliderItems();
     handleLazyLoading();
     handlePaginationItems();
+    handleThumbnailsItems();
     stopLoop();
   }
 
@@ -255,7 +324,7 @@ export default function Slider(options) {
       stopLoop();
     },
     activeSlide() {
-      return activeSlide;
+      return activeSlideIndex;
     },
     goto(slideIndex) {
       goto(slideIndex);
@@ -273,13 +342,15 @@ export default function Slider(options) {
   }
 }
 
-// const slider = Slider({
-//   root: document.querySelector("#slider"),
-//   // autoplay: true,
-//   loop: true,
-//   delay: 1500,
-//   speed: 200,
-//   // startSlide: 0,
-//   // controls: false,
-//   // pagination: false,
-// });
+const slider = Slider({
+  root: document.querySelector("#slider"),
+  // autoplay: true,
+  loop: true,
+  delay: 1500,
+  speed: 200,
+  thumbnails: true,
+  pagination: false,
+  // startSlide: 0,
+  // controls: false,
+  // pagination: false,
+});

@@ -240,6 +240,33 @@ $slider-slide-button-color: #B2ADAD;
     }
   }
 
+  &__thumbnails {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    padding: 10px 0;
+
+    &-inner {
+      position: absolute;
+      display: flex;
+      left: 0;
+      gap: 10px;
+      height: inherit;
+    }
+
+    &-item {
+      transition-property: transform;
+      transition-timing-function: ease;
+      transition-duration: var(--slider-transition-duration);
+      cursor: pointer;
+
+      img {
+        height: 100%;
+        object-fit: fill;
+      }
+    }
+  }
+
   button {
     font-size: 0;
     line-height: 0;
@@ -320,6 +347,9 @@ $slider-slide-button-color: #B2ADAD;
         height: 9px;
       }
     }
+    &__thumbnails {
+      height: 80px;
+    }
   }
 }
 
@@ -347,6 +377,9 @@ $slider-slide-button-color: #B2ADAD;
     }
     &__pagination {
       margin: 16px 0;
+    }    
+    &__thumbnails {
+      height: 50px;
     }
   }
 }
