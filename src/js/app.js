@@ -175,7 +175,9 @@ export default function Slider(options) {
   }
 
   function handleSliderItems() {
-    const width = root.offsetWidth;
+    // const widthOuter = root.offsetWidth;
+    const width = root.querySelector('.slider__slides').offsetWidth;
+    console.log(width);
     slides.forEach((slide, index) => {
       slide.classList.remove("slider__slide--active");
       index === activeSlideIndex && slide.classList.add("slider__slide--active"),
@@ -189,7 +191,6 @@ export default function Slider(options) {
     const widthInner = thumbnails.inner.offsetWidth;
     const step = (widthInner - widthOuter) / (thumbnails.items.length - 1);
     let offset = -step * activeSlideIndex;
-    console.log(widthOuter, widthInner, offset, step);
     thumbnails.items.forEach((thumb) => {
       translate(thumb, offset, speed);
     });

@@ -1,5 +1,9 @@
 body {
   --slider-transition-duration: 0;
+  --slider-thumbnail-height: 100px;
+  --slider-slider-wrapper-width: 100%;
+  --slider-background-color: #F5F5F5;
+  --slider-thumbnail-max-width: 100%;
 }
 
 $slider-pagination-button-color: #D7262E;
@@ -22,9 +26,11 @@ $slider-slide-button-color: #B2ADAD;
   overflow: hidden;
 
   &__wrapper {
+    display: flex;;
     position: relative;
+    justify-content: center;
     border-radius: $slider-border-radius;
-    background-color: #F5F5F5;
+    background-color: var(--slider-background-color);
     overflow: hidden;
     // max-height: 350px;
     width: 100%;
@@ -34,6 +40,7 @@ $slider-slide-button-color: #B2ADAD;
     position: relative;
     display: flex;
     max-height: inherit;
+    max-width: var(--slider-slider-wrapper-width);
   }
 
   &__slide {
@@ -165,40 +172,6 @@ $slider-slide-button-color: #B2ADAD;
       transition-property: transform;
       transition-timing-function: ease;
       transition-duration: var(--slider-transition-duration);
-      // &::before {
-      //   content: "";
-      //   display: block;
-      //   cursor: pointer;
-      //   z-index: 1;
-      //   position: relative;
-      //   border-radius: 50%;
-      //   width: 14px;
-      //   height: 14px;
-      //   background-color: $slider-pagination-button-color;
-      //   transition-property: transform, opacity;
-      //   transition-timing-function: ease;
-      //   transition-duration: var(--slider-transition-duration);
-      //   transform: scale(0);
-      // }
-      // &[data-offset="2"] {
-      //   &::before {
-      //     transform: scale(1);
-      //   }
-      // }
-      // &[data-offset="0"],
-      // &[data-offset="4"] {
-      //   &::before {
-      //     transform: scale(0.35);
-      //     opacity: 0.3;
-      //   }
-      // }
-      // &[data-offset="1"],
-      // &[data-offset="3"] {
-      //   &::before {
-      //     transform: scale(0.71);
-      //     opacity: 0.5;
-      //   }
-      // }
     }
 
     &-bullet {
@@ -241,17 +214,24 @@ $slider-slide-button-color: #B2ADAD;
   }
 
   &__thumbnails {
-    position: relative;
     width: 100%;
-    height: 100px;
-    padding: 10px 0;
+    max-width: var(--slider-thumbnail-max-width);
+    padding: var(--slider-thumbnail-inner-padding);
+    margin: 10px 0;
+
+    &-content {
+      position: relative;
+      width: 100%;
+      height: var(--slider-thumbnail-height);
+      overflow: hidden;
+    }
 
     &-inner {
       position: absolute;
       display: flex;
       left: 0;
       gap: 10px;
-      height: inherit;
+      height: var(--slider-thumbnail-height);
     }
 
     &-item {
@@ -262,6 +242,7 @@ $slider-slide-button-color: #B2ADAD;
 
       img {
         height: 100%;
+        max-width: initial;
         object-fit: fill;
       }
     }
@@ -278,19 +259,13 @@ $slider-slide-button-color: #B2ADAD;
 }
 
 @media (max-width: 1229px) {
-  // .container {
-  //   max-width: 990px;
-  // }
   .slider {
     &__wrapper {
       border-radius: 20px;
     }
     &__slide {
-      // padding-top: 225px;
-      // height: 225px;
       &-button {
         bottom: 25px;
-        // left: 78px;
         font-size: 14px;
         padding: 11px 32px 13px;
       }
@@ -309,19 +284,16 @@ $slider-slide-button-color: #B2ADAD;
 }
 
 @media (max-width: 989px) {
-  // .container {
-  //   max-width: 750px;
-  // }
+  body {
+    --slider-thumbnail-height: 80px;
+  }
   .slider {
     &__wrapper {
       border-radius: 10px;
     }
     &__slide {
-      // padding-top: 170px;
-      // height: 170px;
       &-button {
         bottom: 18px;
-        // left: 55px;
         font-size: 12px;
         padding: 7px 20px 9px;
       }
@@ -347,20 +319,15 @@ $slider-slide-button-color: #B2ADAD;
         height: 9px;
       }
     }
-    &__thumbnails {
-      height: 80px;
-    }
   }
 }
 
-@media (max-width: 749px) {
-  // .container {
-  //   max-width: 540px;
-  // }
+@media (max-width: 749px) {  
+  body {
+    --slider-thumbnail-height: 50px;
+  }
   .slider {
     &__slide {
-      // padding-top: 120px;
-      // height: 120px;
       &-button {
         display: none;
       }
@@ -377,24 +344,16 @@ $slider-slide-button-color: #B2ADAD;
     }
     &__pagination {
       margin: 16px 0;
-    }    
-    &__thumbnails {
-      height: 50px;
     }
   }
 }
 
 @media (max-width: 539px) {
-  // .container {
-  //   max-width: 360px;
-  // }
   .slider {
     &__wrapper {
       border-radius: 7px;
     }
     &__slide {
-      // padding-top: 77px;
-      // height: 77px;
       &-button {
         display: none;
       }
